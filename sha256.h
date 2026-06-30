@@ -16,9 +16,16 @@ typedef struct sha256_t
   unsigned char buffer[64];
 } sha256_t;
 
+__declspec(dllexport)
 void sha256_init(sha256_t *p);
+
+__declspec(dllexport)
 void sha256_update(sha256_t *p, const unsigned char *data, size_t size);
+
+__declspec(dllexport)
 void sha256_final(sha256_t *p, unsigned char *digest);
+
+__declspec(dllexport)
 void sha256_hash(unsigned char *buf, const unsigned char *data, size_t size);
 
 #endif
