@@ -92,7 +92,7 @@ static const uint32_t K[64] = {
   0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
 
-__declspec(dllexport)
+//__declspec(dllexport)
 static void
 sha256_transform(uint32_t *state, const uint32_t *data)
 {
@@ -148,7 +148,7 @@ sha256_transform(uint32_t *state, const uint32_t *data)
 #undef s0
 #undef s1
 
-__declspec(dllexport)
+//__declspec(dllexport)
 static void
 sha256_write_byte_block(sha256_t *p)
 {
