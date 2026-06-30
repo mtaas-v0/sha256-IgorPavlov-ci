@@ -9,6 +9,7 @@ This code is based on public domain code from Wei Dai's Crypto++ library. */
 #define _SHA256_UNROLL
 #define _SHA256_UNROLL2
 
+__declspec(dllexport)
 void
 sha256_init(sha256_t *p)
 {
@@ -91,6 +92,7 @@ static const uint32_t K[64] = {
   0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
 
+__declspec(dllexport)
 static void
 sha256_transform(uint32_t *state, const uint32_t *data)
 {
@@ -146,6 +148,7 @@ sha256_transform(uint32_t *state, const uint32_t *data)
 #undef s0
 #undef s1
 
+__declspec(dllexport)
 static void
 sha256_write_byte_block(sha256_t *p)
 {
@@ -160,7 +163,7 @@ sha256_write_byte_block(sha256_t *p)
   sha256_transform(p->state, data32);
 }
 
-
+__declspec(dllexport)
 void
 sha256_hash(unsigned char *buf, const unsigned char *data, size_t size)
 {
@@ -170,7 +173,7 @@ sha256_hash(unsigned char *buf, const unsigned char *data, size_t size)
   sha256_final(&hash, buf);
 }
 
-
+__declspec(dllexport)
 void
 sha256_update(sha256_t *p, const unsigned char *data, size_t size)
 {
@@ -188,7 +191,7 @@ sha256_update(sha256_t *p, const unsigned char *data, size_t size)
   }
 }
 
-
+__declspec(dllexport)
 void
 sha256_final(sha256_t *p, unsigned char *digest)
 {
