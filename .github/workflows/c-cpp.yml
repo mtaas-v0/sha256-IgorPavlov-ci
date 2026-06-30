@@ -21,10 +21,10 @@ jobs:
       with:
         arch: x64
 
-    - name: Build with cl.exe cpuid.c
+    - name: Build with cl.exe
       run: |
-        cl.exe /EHsc test.c sha256.c  deps/tap.c/tap.c /I deps /Fe: test.exe /DTEST_MAIN
-        cl.exe /LD test.c sha256.c deps/tap.c/tap.c /I deps 
+        cl.exe /EHsc test.c sha256.c  deps/tap.c/tap.c /I deps /Fe: test.exe  
+        cl.exe /LD sha256.c deps/tap.c/tap.c /I deps /Fe: sha256-purec.dll
     # 4. (Optional) Run your generated binary
     - name: Run Executable
       continue-on-error: true
@@ -37,4 +37,10 @@ jobs:
       with:
         name: sha256-IgorPavlov-ci-artifact.zip
         # Artifact name. If the `archive` input is `false`, the name of the file uploaded will be the artifact name.
-        path: ./
+        path: |
+          sha256-purec.dll
+          test.exe
+          sha256.h
+          deps/tap.c/tap.h
+          deps/rotate-bits/rotate-bits.h
+          
