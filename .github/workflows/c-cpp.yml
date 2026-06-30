@@ -1,0 +1,40 @@
+name: Windows MSVC CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    # 1. Fetch your code from GitHub
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # 2. Configure environment variables for cl.exe
+    - name: Configure Developer Command Prompt
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x64
+
+    - name: Build with cl.exe cpuid.c
+      run: |
+        cl.exe /EHsc test.c sha256.c  deps/tap.c/tap.c /I deps /Fe: test.exe /DTEST_MAIN
+        cl.exe /LD test.c sha256.c deps/tap.c/tap.c /I deps 
+    # 4. (Optional) Run your generated binary
+    - name: Run Executable
+      continue-on-error: true
+      run: |
+        test.exe
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v7.0.1
+      
+      with:
+        name: sha256-IgorPavlov-ci-artifact.zip
+        # Artifact name. If the `archive` input is `false`, the name of the file uploaded will be the artifact name.
+        path: ./
